@@ -25,7 +25,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "../common";
 
 export interface RaffleInterface extends utils.Interface {
@@ -66,7 +65,7 @@ export interface RaffleInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "checkUpkeep",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "enterRaffle",
@@ -94,7 +93,7 @@ export interface RaffleInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getPlayer",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getRaffleState",
@@ -114,11 +113,11 @@ export interface RaffleInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "performUpkeep",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "rawFulfillRandomWords",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>[]]
+    values: [BigNumberish, BigNumberish[]]
   ): string;
 
   decodeFunctionResult(
@@ -239,12 +238,12 @@ export interface Raffle extends BaseContract {
 
   functions: {
     checkUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
+      arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
 
     enterRaffle(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getEntranceFee(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -258,7 +257,7 @@ export interface Raffle extends BaseContract {
     getNumberOfPlayers(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getPlayer(
-      index: PromiseOrValue<BigNumberish>,
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -271,24 +270,24 @@ export interface Raffle extends BaseContract {
     getSubscriptionId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     performUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      arg0: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      requestId: BigNumberish,
+      randomWords: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   checkUpkeep(
-    arg0: PromiseOrValue<BytesLike>,
+    arg0: BytesLike,
     overrides?: CallOverrides
   ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
 
   enterRaffle(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getEntranceFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -301,10 +300,7 @@ export interface Raffle extends BaseContract {
 
   getNumberOfPlayers(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getPlayer(
-    index: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getPlayer(index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   getRaffleState(overrides?: CallOverrides): Promise<number>;
 
@@ -315,19 +311,19 @@ export interface Raffle extends BaseContract {
   getSubscriptionId(overrides?: CallOverrides): Promise<BigNumber>;
 
   performUpkeep(
-    arg0: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    arg0: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   rawFulfillRandomWords(
-    requestId: PromiseOrValue<BigNumberish>,
-    randomWords: PromiseOrValue<BigNumberish>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    requestId: BigNumberish,
+    randomWords: BigNumberish[],
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     checkUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
+      arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
 
@@ -343,10 +339,7 @@ export interface Raffle extends BaseContract {
 
     getNumberOfPlayers(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPlayer(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getPlayer(index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     getRaffleState(overrides?: CallOverrides): Promise<number>;
 
@@ -356,47 +349,35 @@ export interface Raffle extends BaseContract {
 
     getSubscriptionId(overrides?: CallOverrides): Promise<BigNumber>;
 
-    performUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    performUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<void>;
 
     rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
+      requestId: BigNumberish,
+      randomWords: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
-    "RaffleEnter(address)"(
-      player?: PromiseOrValue<string> | null
-    ): RaffleEnterEventFilter;
-    RaffleEnter(player?: PromiseOrValue<string> | null): RaffleEnterEventFilter;
+    "RaffleEnter(address)"(player?: string | null): RaffleEnterEventFilter;
+    RaffleEnter(player?: string | null): RaffleEnterEventFilter;
 
     "RequestedRaffleWinner(uint256)"(
-      requestId?: PromiseOrValue<BigNumberish> | null
+      requestId?: BigNumberish | null
     ): RequestedRaffleWinnerEventFilter;
     RequestedRaffleWinner(
-      requestId?: PromiseOrValue<BigNumberish> | null
+      requestId?: BigNumberish | null
     ): RequestedRaffleWinnerEventFilter;
 
-    "WinnerPicked(address)"(
-      player?: PromiseOrValue<string> | null
-    ): WinnerPickedEventFilter;
-    WinnerPicked(
-      player?: PromiseOrValue<string> | null
-    ): WinnerPickedEventFilter;
+    "WinnerPicked(address)"(player?: string | null): WinnerPickedEventFilter;
+    WinnerPicked(player?: string | null): WinnerPickedEventFilter;
   };
 
   estimateGas: {
-    checkUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    checkUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     enterRaffle(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getEntranceFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -410,7 +391,7 @@ export interface Raffle extends BaseContract {
     getNumberOfPlayers(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPlayer(
-      index: PromiseOrValue<BigNumberish>,
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -423,25 +404,25 @@ export interface Raffle extends BaseContract {
     getSubscriptionId(overrides?: CallOverrides): Promise<BigNumber>;
 
     performUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      arg0: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      requestId: BigNumberish,
+      randomWords: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     checkUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
+      arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     enterRaffle(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getEntranceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -457,7 +438,7 @@ export interface Raffle extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getPlayer(
-      index: PromiseOrValue<BigNumberish>,
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -472,14 +453,14 @@ export interface Raffle extends BaseContract {
     getSubscriptionId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     performUpkeep(
-      arg0: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      arg0: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     rawFulfillRandomWords(
-      requestId: PromiseOrValue<BigNumberish>,
-      randomWords: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      requestId: BigNumberish,
+      randomWords: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

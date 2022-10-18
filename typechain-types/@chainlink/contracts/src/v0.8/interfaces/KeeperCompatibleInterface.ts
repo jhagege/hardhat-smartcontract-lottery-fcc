@@ -19,7 +19,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "../../../../../common";
 
 export interface KeeperCompatibleInterfaceInterface extends utils.Interface {
@@ -34,11 +33,11 @@ export interface KeeperCompatibleInterfaceInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "checkUpkeep",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "performUpkeep",
-    values: [PromiseOrValue<BytesLike>]
+    values: [BytesLike]
   ): string;
 
   decodeFunctionResult(
@@ -81,36 +80,36 @@ export interface KeeperCompatibleInterface extends BaseContract {
 
   functions: {
     checkUpkeep(
-      checkData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      checkData: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     performUpkeep(
-      performData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      performData: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   checkUpkeep(
-    checkData: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    checkData: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   performUpkeep(
-    performData: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    performData: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     checkUpkeep(
-      checkData: PromiseOrValue<BytesLike>,
+      checkData: BytesLike,
       overrides?: CallOverrides
     ): Promise<
       [boolean, string] & { upkeepNeeded: boolean; performData: string }
     >;
 
     performUpkeep(
-      performData: PromiseOrValue<BytesLike>,
+      performData: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -119,25 +118,25 @@ export interface KeeperCompatibleInterface extends BaseContract {
 
   estimateGas: {
     checkUpkeep(
-      checkData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      checkData: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     performUpkeep(
-      performData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      performData: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     checkUpkeep(
-      checkData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      checkData: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     performUpkeep(
-      performData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      performData: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

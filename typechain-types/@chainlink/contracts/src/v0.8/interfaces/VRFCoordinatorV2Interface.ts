@@ -20,7 +20,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "../../../../../common";
 
 export interface VRFCoordinatorV2InterfaceInterface extends utils.Interface {
@@ -31,7 +30,6 @@ export interface VRFCoordinatorV2InterfaceInterface extends utils.Interface {
     "createSubscription()": FunctionFragment;
     "getRequestConfig()": FunctionFragment;
     "getSubscription(uint64)": FunctionFragment;
-    "pendingRequestExists(uint64)": FunctionFragment;
     "removeConsumer(uint64,address)": FunctionFragment;
     "requestRandomWords(bytes32,uint64,uint16,uint32,uint32)": FunctionFragment;
     "requestSubscriptionOwnerTransfer(uint64,address)": FunctionFragment;
@@ -45,7 +43,6 @@ export interface VRFCoordinatorV2InterfaceInterface extends utils.Interface {
       | "createSubscription"
       | "getRequestConfig"
       | "getSubscription"
-      | "pendingRequestExists"
       | "removeConsumer"
       | "requestRandomWords"
       | "requestSubscriptionOwnerTransfer"
@@ -53,15 +50,15 @@ export interface VRFCoordinatorV2InterfaceInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "acceptSubscriptionOwnerTransfer",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "addConsumer",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "cancelSubscription",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "createSubscription",
@@ -73,29 +70,19 @@ export interface VRFCoordinatorV2InterfaceInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getSubscription",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "pendingRequestExists",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "removeConsumer",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "requestRandomWords",
-    values: [
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [BytesLike, BigNumberish, BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "requestSubscriptionOwnerTransfer",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [BigNumberish, string]
   ): string;
 
   decodeFunctionResult(
@@ -120,10 +107,6 @@ export interface VRFCoordinatorV2InterfaceInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getSubscription",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "pendingRequestExists",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -170,24 +153,24 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
 
   functions: {
     acceptSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     addConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      consumer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     cancelSubscription(
-      subId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     createSubscription(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getRequestConfig(
@@ -195,7 +178,7 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
     ): Promise<[number, number, string[]]>;
 
     getSubscription(
-      subId: PromiseOrValue<BigNumberish>,
+      subId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, string, string[]] & {
@@ -206,52 +189,47 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
       }
     >;
 
-    pendingRequestExists(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
     removeConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      consumer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     requestRandomWords(
-      keyHash: PromiseOrValue<BytesLike>,
-      subId: PromiseOrValue<BigNumberish>,
-      minimumRequestConfirmations: PromiseOrValue<BigNumberish>,
-      callbackGasLimit: PromiseOrValue<BigNumberish>,
-      numWords: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      keyHash: BytesLike,
+      subId: BigNumberish,
+      minimumRequestConfirmations: BigNumberish,
+      callbackGasLimit: BigNumberish,
+      numWords: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     requestSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   acceptSubscriptionOwnerTransfer(
-    subId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   addConsumer(
-    subId: PromiseOrValue<BigNumberish>,
-    consumer: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subId: BigNumberish,
+    consumer: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   cancelSubscription(
-    subId: PromiseOrValue<BigNumberish>,
-    to: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subId: BigNumberish,
+    to: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   createSubscription(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getRequestConfig(
@@ -259,7 +237,7 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
   ): Promise<[number, number, string[]]>;
 
   getSubscription(
-    subId: PromiseOrValue<BigNumberish>,
+    subId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, string, string[]] & {
@@ -270,47 +248,42 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
     }
   >;
 
-  pendingRequestExists(
-    subId: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
   removeConsumer(
-    subId: PromiseOrValue<BigNumberish>,
-    consumer: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subId: BigNumberish,
+    consumer: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   requestRandomWords(
-    keyHash: PromiseOrValue<BytesLike>,
-    subId: PromiseOrValue<BigNumberish>,
-    minimumRequestConfirmations: PromiseOrValue<BigNumberish>,
-    callbackGasLimit: PromiseOrValue<BigNumberish>,
-    numWords: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    keyHash: BytesLike,
+    subId: BigNumberish,
+    minimumRequestConfirmations: BigNumberish,
+    callbackGasLimit: BigNumberish,
+    numWords: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   requestSubscriptionOwnerTransfer(
-    subId: PromiseOrValue<BigNumberish>,
-    newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subId: BigNumberish,
+    newOwner: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     acceptSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
+      subId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     addConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
+      subId: BigNumberish,
+      consumer: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     cancelSubscription(
-      subId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
+      subId: BigNumberish,
+      to: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -321,7 +294,7 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
     ): Promise<[number, number, string[]]>;
 
     getSubscription(
-      subId: PromiseOrValue<BigNumberish>,
+      subId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, string, string[]] & {
@@ -332,29 +305,24 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
       }
     >;
 
-    pendingRequestExists(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
     removeConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
+      subId: BigNumberish,
+      consumer: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     requestRandomWords(
-      keyHash: PromiseOrValue<BytesLike>,
-      subId: PromiseOrValue<BigNumberish>,
-      minimumRequestConfirmations: PromiseOrValue<BigNumberish>,
-      callbackGasLimit: PromiseOrValue<BigNumberish>,
-      numWords: PromiseOrValue<BigNumberish>,
+      keyHash: BytesLike,
+      subId: BigNumberish,
+      minimumRequestConfirmations: BigNumberish,
+      callbackGasLimit: BigNumberish,
+      numWords: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     requestSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      newOwner: PromiseOrValue<string>,
+      subId: BigNumberish,
+      newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -363,113 +331,103 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
 
   estimateGas: {
     acceptSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     addConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      consumer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     cancelSubscription(
-      subId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     createSubscription(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getRequestConfig(overrides?: CallOverrides): Promise<BigNumber>;
 
     getSubscription(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    pendingRequestExists(
-      subId: PromiseOrValue<BigNumberish>,
+      subId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     removeConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      consumer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     requestRandomWords(
-      keyHash: PromiseOrValue<BytesLike>,
-      subId: PromiseOrValue<BigNumberish>,
-      minimumRequestConfirmations: PromiseOrValue<BigNumberish>,
-      callbackGasLimit: PromiseOrValue<BigNumberish>,
-      numWords: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      keyHash: BytesLike,
+      subId: BigNumberish,
+      minimumRequestConfirmations: BigNumberish,
+      callbackGasLimit: BigNumberish,
+      numWords: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     requestSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     acceptSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     addConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      consumer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     cancelSubscription(
-      subId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     createSubscription(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getRequestConfig(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getSubscription(
-      subId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    pendingRequestExists(
-      subId: PromiseOrValue<BigNumberish>,
+      subId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     removeConsumer(
-      subId: PromiseOrValue<BigNumberish>,
-      consumer: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      consumer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     requestRandomWords(
-      keyHash: PromiseOrValue<BytesLike>,
-      subId: PromiseOrValue<BigNumberish>,
-      minimumRequestConfirmations: PromiseOrValue<BigNumberish>,
-      callbackGasLimit: PromiseOrValue<BigNumberish>,
-      numWords: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      keyHash: BytesLike,
+      subId: BigNumberish,
+      minimumRequestConfirmations: BigNumberish,
+      callbackGasLimit: BigNumberish,
+      numWords: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     requestSubscriptionOwnerTransfer(
-      subId: PromiseOrValue<BigNumberish>,
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subId: BigNumberish,
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

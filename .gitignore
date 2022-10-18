@@ -7,6 +7,8 @@ typechain
 
 # vscode
 .vscode
+.idea
+
 
 #Hardhat files
 cache
